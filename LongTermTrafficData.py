@@ -250,14 +250,19 @@ def exportToExcel(df,startRow,startCol,weekDayName):
         df.to_excel(book, sheet_name=weekDayName, startrow=startRow, startcol=startCol, index=False)
 
 ##---CALL ALL FUNCTIONS---##
-driver = webdriver.Chrome()
-weekDay = getWeekdayName()
-startRow = readExcel()
-gasPrice = getGasPrice()
-locationInput()
-duration = getDuration()
-distance = getDistance()
-[combinedGasPrice,cityGasPrice,hwGasPrice] = gasDataCollection(gasPrice,distance)
-package,startCol = packageExport(distance,duration,gasPrice,combinedGasPrice,cityGasPrice,hwGasPrice)
-exportToExcel(package,startRow,startCol,weekDay)
-driver.close()
+if __name__=='__main__':
+    driver = webdriver.Chrome()
+
+    weekDay = getWeekdayName()
+    startRow = readExcel()
+    gasPrice = getGasPrice()
+    locationInput()
+    duration = getDuration()
+    distance = getDistance()
+
+    [combinedGasPrice,cityGasPrice,hwGasPrice] = gasDataCollection(gasPrice,distance)
+
+    package,startCol = packageExport(distance,duration,gasPrice,combinedGasPrice,cityGasPrice,hwGasPrice)
+    exportToExcel(package,startRow,startCol,weekDay)
+
+    driver.close()
